@@ -3,7 +3,7 @@ import { FaUser, FaUsers, FaUserFriends, FaBriefcase, FaCompass} from 'react-ico
 
 import Card from './Card';
 import {battle} from '../utils/api';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 
 const ProfileList = ({profile}) => (
   <ul className='card-list'>
@@ -39,6 +39,12 @@ ProfileList.propTypes = {
 }
 
 class Results extends React.Component {
+  static propTypes = {
+    playerOne: PropTypes.string.isRequired,
+    playerTwo: PropTypes.string.isRequired,
+    onReset: PropTypes.func.isRequired
+  }
+
   state = {
     winner: null,
     loser: null,
@@ -79,26 +85,34 @@ class Results extends React.Component {
     }
 
     return (
-      <div className='grid space-around container-sm'>
-        <Card
-          header={winner.score === loser.score ? 'Tie' : 'Winner'}
-          subheader={`Score: ${winner.score.toLocaleString()}`}
-          avatar={winner.profile.avatar_url}
-          href={winner.profile.html_url}
-          name={winner.profile.login}
-        >
-          <ProfileList profile={winner.profile} />
-        </Card>
-        <Card
-          header={winner.score === loser.score ? 'Tie' : 'Loser'}
-          subheader={`Score: ${loser.score.toLocaleString()}`}
-          avatar={loser.profile.avatar_url}
-          name={loser.profile.login}
-          href={loser.profile.html_url}
-        >
-          <ProfileList profile={loser.profile} />
-        </Card>
-      </div>
+      <React.Fragment>
+        <div className='grid space-around container-sm'>
+          <Card
+            header={winner.score === loser.score ? 'Tie' : 'Winner'}
+            subheader={`Score: ${winner.score.toLocaleString()}`}
+            avatar={winner.profile.avatar_url}
+            href={winner.profile.html_url}
+            name={winner.profile.login}
+          >
+            <ProfileList profile={winner.profile} />
+          </Card>
+          <Card
+            header={winner.score === loser.score ? 'Tie' : 'Loser'}
+            subheader={`Score: ${loser.score.toLocaleString()}`}
+            avatar={loser.profile.avatar_url}
+            name={loser.profile.login}
+            href={loser.profile.html_url}
+          >
+            <ProfileList profile={loser.profile} />
+          </Card>
+        </div>
+        <button
+          onClick={this.props.onReset}
+          className='btn btn-dark btn-space'>
+            Reset
+          </button>
+
+      </React.Fragment>
     )
   }
 }

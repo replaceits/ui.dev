@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaUser, FaFighterJet, FaTrophy, FaUserFriends, FaTimesCircle } from 'react-icons/fa';
 
+import Results from './Results';
+
 const Instructions = () => (
   <div className='instructions-container'>
     <h1 className='center-text header-lg'>Instructions</h1>
@@ -111,7 +113,8 @@ PlayerPreview.propTypes = {
 class Battle extends React.Component {
   state = {
     playerOne: null,
-    playerTwo: null
+    playerTwo: null,
+    battle: false
   }
 
   handleSubmit(id, player) {
@@ -127,7 +130,11 @@ class Battle extends React.Component {
   }
 
   render() {
-    const {playerOne, playerTwo} = this.state;
+    const {playerOne, playerTwo, battle} = this.state;
+
+    if (battle === true) {
+      return <Results playerOne={playerOne} playerTwo={playerTwo} />
+    }
 
     return (
       <React.Fragment>
@@ -153,6 +160,15 @@ class Battle extends React.Component {
               <PlayerPreview username={playerTwo} label='Player Two' onReset={()=>this.handleReset('playerTwo')} />
             )}
           </div>
+
+          {playerOne && playerTwo && (
+            <button
+              className='btn btn-dark btn-space'
+              onClick={()=>this.setState({battle: true})}
+            >
+              Battle
+            </button>
+          )}
         </div>
       </React.Fragment>
     )

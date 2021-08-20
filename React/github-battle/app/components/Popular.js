@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const LanguagesNav = ({selected, onUpdateLanguage}) => (
   <ul className='flex-center'>
@@ -15,6 +16,11 @@ const LanguagesNav = ({selected, onUpdateLanguage}) => (
     ))}
   </ul>
 );
+
+LanguagesNav.propTypes = {
+  selected: PropTypes.string.isRequired,
+  onUpdateLanguage: PropTypes.func.isRequired
+};
 
 const languages = [
   'All',

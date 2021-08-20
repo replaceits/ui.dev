@@ -1,21 +1,35 @@
 import React from 'react';
 
-class Popular extends React.Component {
-  render() {
-    const languages = [
-      'All',
-      'Javascript',
-      'Ruby',
-      'Java',
-      'CSS',
-      'Python'
-    ];
+const languages = [
+  'All',
+  'Javascript',
+  'Ruby',
+  'Java',
+  'CSS',
+  'Python'
+];
 
+class Popular extends React.Component {
+  state = {
+    selectedLanguage: 'All'
+  }
+
+  updateLanguage(selectedLanguage) {
+    this.setState({
+      selectedLanguage
+    });
+  }
+
+  render() {
     return (
       <ul className='flex-center'>
         {languages.map(language => (
           <li key={language}>
-            <button className='btn-clear nav-link'>
+            <button 
+              className='btn-clear nav-link'
+              style={language === this.state.selectedLanguage ? {color: 'rgb(187, 46, 31)'} : null}
+              onClick={(() => this.updateLanguage(language))}
+            >
               {language}
             </button>
           </li>

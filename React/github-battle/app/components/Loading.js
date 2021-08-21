@@ -1,6 +1,17 @@
 
 import React from 'react';
 
+const styles = {
+  content: {
+    fontSize: '35px',
+    position: 'absolute',
+    left: '0',
+    right: '0',
+    marginTop: '20px',
+    textAlign: 'center'
+  }
+}
+
 class Loading extends React.Component {
   state = {
     content: 'Loading'
@@ -20,7 +31,7 @@ class Loading extends React.Component {
 
   render() {
     return (
-      <p>
+      <p style={styles.content}>
         {this.state.content}
       </p>
     )

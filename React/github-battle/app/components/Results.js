@@ -4,6 +4,7 @@ import { FaUser, FaUsers, FaUserFriends, FaBriefcase, FaCompass} from 'react-ico
 import Card from './Card';
 import {battle} from '../utils/api';
 import PropTypes from 'prop-types';
+import Loading from './Loading';
 
 const ProfileList = ({profile}) => (
   <ul className='card-list'>
@@ -75,7 +76,7 @@ class Results extends React.Component {
     const {winner, loser, error, loading} = this.state;
 
     if (loading === true) {
-      return <p>LOADING</p>
+      return <Loading />
     }
 
     if (error) {

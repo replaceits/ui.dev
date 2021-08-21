@@ -21,7 +21,7 @@ class Loading extends React.Component {
 
   static defaultProps = {
     text: 'Loading',
-    speed: 3000
+    speed: 300
   }
 
   state = {

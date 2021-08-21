@@ -4,6 +4,7 @@ import {FaCodeBranch, FaExclamationTriangle, FaStar, FaUser} from 'react-icons/f
 
 import { fetchPopularRepos } from '../utils/api';
 import Card from './Card';
+import Tooltip from './Tooltip';
 
 const LanguagesNav = ({selected, onUpdateLanguage}) => (
   <ul className='flex-center'>
@@ -33,7 +34,7 @@ const ReposGrid = ({repos}) => (
       const {login, avatar_url} = owner;
 
       return (
-        <li key={html_url} className='card bg-light'>
+        <li key={html_url}>
           <Card
             header={`#${index + 1}`}
             avatar={avatar_url}
@@ -42,8 +43,10 @@ const ReposGrid = ({repos}) => (
           >
             <ul className='card-list'>
               <li>
-                <FaUser color='rgb(255, 191, 116)' size={22} />
-                <a href={`https://github.com/${login}`}>{login}</a>
+                <Tooltip text="Github username">
+                  <FaUser color='rgb(255, 191, 116)' size={22} />
+                  <a href={`https://github.com/${login}`}>{login}</a>
+                </Tooltip>
               </li>
               <li>
                 <FaStar color='rgb(255, 215, 0)' size={22} />

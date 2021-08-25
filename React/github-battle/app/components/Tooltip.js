@@ -2,6 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Hover from './Hover';
+
 const styles = {
   container: {
     position: 'relative',
@@ -26,38 +28,23 @@ const styles = {
 
 class Tooltip extends React.Component {
   static propTypes = {
-    text: PropTypes.string.isRequired
-  }
-
-  state = {
-    hovering: false,
-  }
-
-  mouseOver(id) {
-    this.setState({
-      hovering: true
-    });
-  }
-
-  mouseOut(id) {
-    this.setState({
-      hovering: false
-    });
+    text: PropTypes.string.isRequired,
   }
 
   render() {
     const {text, children} = this.props;
-    const {hovering} = this.state;
 
     return (
-      <div 
-        onMouseOver={()=>this.mouseOver()} 
-        onMouseOut={()=>this.mouseOut()}
-        style={styles.container}
-      >
-        {hovering === true && <div style={styles.tooltip}>{text}</div>}
-        {children}
-      </div>
+      <Hover>
+        {(hovering) => (
+          <div 
+            style={styles.container}
+          >
+            {hovering === true && <div style={styles.tooltip}>{text}</div>}
+            {children}
+          </div>
+        )}
+      </Hover>
     )
   }
 }

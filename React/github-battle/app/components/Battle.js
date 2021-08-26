@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FaFighterJet, FaTrophy, FaUserFriends, FaTimesCircle } from 'react-icons/fa';
 
+import { Link } from 'react-router-dom';
+
 import { ThemeConsumer } from '../contexts/theme';
 import Results from './Results';
 
@@ -127,7 +129,6 @@ class Battle extends React.Component {
   state = {
     playerOne: null,
     playerTwo: null,
-    battle: false
   }
 
   handleSubmit(id, player) {
@@ -143,21 +144,7 @@ class Battle extends React.Component {
   }
 
   render() {
-    const {playerOne, playerTwo, battle} = this.state;
-
-    if (battle === true) {
-      return (
-        <Results 
-          playerOne={playerOne} 
-          playerTwo={playerTwo} 
-          onReset={() => this.setState({
-            playerOne: null,
-            playerTwo: null,
-            battle: false
-          })}
-        />
-      );
-    }
+    const {playerOne, playerTwo} = this.state;
 
     return (
       <React.Fragment>
@@ -185,12 +172,15 @@ class Battle extends React.Component {
           </div>
 
           {playerOne && playerTwo && (
-            <button
+            <Link
               className='btn btn-dark btn-space'
-              onClick={()=>this.setState({battle: true})}
+              to={{
+                pathname: '/battle/results',
+                search: `?playerOne=${playerOne}&playerTwo=${playerTwo}`
+              }}
             >
               Battle
-            </button>
+            </Link>
           )}
         </div>
       </React.Fragment>

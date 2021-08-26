@@ -6,7 +6,6 @@ import { FaFighterJet, FaTrophy, FaUserFriends, FaTimesCircle } from 'react-icon
 import { Link } from 'react-router-dom';
 
 import { ThemeConsumer } from '../contexts/theme';
-import Results from './Results';
 
 const Instructions = () => (
   <ThemeConsumer>

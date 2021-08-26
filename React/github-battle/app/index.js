@@ -1,6 +1,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Nav from './components/Nav';
 import Popular from './components/Popular';
 import Battle from './components/Battle';
@@ -19,14 +21,18 @@ class App extends React.Component {
 
   render() {
     return (
-      <ThemeProvider value={this.state}>
-        <div className={this.state.theme}>
-          <div className="container">
-            <Nav />
-            <Battle />
+      <Router>
+        <ThemeProvider value={this.state}>
+          <div className={this.state.theme}>
+            <div className="container">
+              <Nav />
+
+              <Route exact path='/' component={Popular} />
+              <Route path='/battle' component={Battle} />
+            </div>
           </div>
-        </div>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Router>
     );
   }
 }

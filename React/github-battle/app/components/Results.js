@@ -1,11 +1,14 @@
 import React from 'react';
 import { FaUser, FaUsers, FaUserFriends, FaBriefcase, FaCompass} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 import Card from './Card';
 import {battle} from '../utils/api';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
 import Tooltip from './Tooltip';
+
 
 class ProfileList extends React.Component {
   static propTypes = {
@@ -51,12 +54,6 @@ class ProfileList extends React.Component {
 }
 
 class Results extends React.Component {
-  static propTypes = {
-    playerOne: PropTypes.string.isRequired,
-    playerTwo: PropTypes.string.isRequired,
-    onReset: PropTypes.func.isRequired
-  }
-
   state = {
     winner: null,
     loser: null,
@@ -65,7 +62,7 @@ class Results extends React.Component {
   }
 
   componentDidMount() {
-    const {playerOne, playerTwo} = this.props;
+    const {playerOne, playerTwo} = queryString.parse(this.props.location.search);
 
     battle([playerOne, playerTwo])
       .then(players => {
@@ -118,11 +115,11 @@ class Results extends React.Component {
             <ProfileList profile={loser.profile} />
           </Card>
         </div>
-        <button
-          onClick={this.props.onReset}
+        <Link
+          to='/battle'
           className='btn btn-dark btn-space'>
             Reset
-          </button>
+          </Link>
 
       </React.Fragment>
     )

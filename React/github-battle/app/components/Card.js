@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ThemeConsumer } from '../contexts/theme';
+import ThemeContext from '../contexts/theme';
 
 class Card extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ class Card extends React.Component {
     const {header, name, avatar, subheader, href, children} = this.props;
 
     return (
-      <ThemeConsumer>
+      <ThemeContext.Consumer>
         {({theme}) => (
           <div className={`card bg-${theme}`}>
             <h4 className='header-lg center-text'>
@@ -41,7 +41,7 @@ class Card extends React.Component {
             {children}
           </div>
         )}
-      </ThemeConsumer>
+      </ThemeContext.Consumer>
     );
   }
 }

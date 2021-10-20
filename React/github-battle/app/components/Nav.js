@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { ThemeConsumer } from '../contexts/theme';
+import ThemeContext from '../contexts/theme';
 
 const activeStyle = {
   color: 'rgb(187, 46, 31)'
@@ -9,7 +9,7 @@ const activeStyle = {
 class Nav extends React.Component {
   render() {
     return (
-      <ThemeConsumer>
+      <ThemeContext.Consumer>
         {({theme, toggleTheme})=>(
           <nav className='row space-between'>
             <ul className='row nav'>
@@ -42,7 +42,7 @@ class Nav extends React.Component {
             </button>
           </nav>
         )}
-      </ThemeConsumer>
+      </ThemeContext.Consumer>
     );
   }
 }

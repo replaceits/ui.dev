@@ -5,45 +5,39 @@ import {BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Loading from './components/Loading';
 
 import Nav from './components/Nav';
-import { ThemeProvider } from './contexts/theme';
+import ThemeContext from './contexts/theme';
 import './index.css';
 
 const Popular = React.lazy(() => import('./components/Popular'));
 const Battle = React.lazy(() => import('./components/Battle'));
 const Results = React.lazy(() => import('./components/Results'));
 
-class App extends React.Component {
-  state = {
-    theme: 'light',
-    toggleTheme: () => {
-      this.setState(({theme}) => ({
-        theme: theme === 'light' ? 'dark' : 'light'
-      }))
-    }
-  }
+function App() {
+  const [theme, setTheme] = React.useState('light');
+  const toggleTheme = () => setTheme(theme => theme === 'light' ? 'dark' : 'light');
+  
+  const themeMemo = React.useMemo(() => ({theme, toggleTheme}), [theme, toggleTheme]);
 
-  render() {
-    return (
-      <Router>
-        <ThemeProvider value={this.state}>
-          <div className={this.state.theme}>
-            <div className="container">
-              <Nav />
+  return (
+    <Router>
+      <ThemeContext.Provider value={themeMemo}>
+        <div className={theme}>
+          <div className="container">
+            <Nav />
 
-              <React.Suspense fallback={<Loading />}>
-                <Switch>
-                  <Route exact path='/' component={Popular} />
-                  <Route exact path='/battle' component={Battle} />
-                  <Route path='/battle/results' component={Results} />
-                  <Route render={() => <h1>404</h1>} />
-                </Switch>
-              </React.Suspense>
-            </div>
+            <React.Suspense fallback={<Loading />}>
+              <Switch>
+                <Route exact path='/' component={Popular} />
+                <Route exact path='/battle' component={Battle} />
+                <Route path='/battle/results' component={Results} />
+                <Route render={() => <h1>404</h1>} />
+              </Switch>
+            </React.Suspense>
           </div>
-        </ThemeProvider>
-      </Router>
-    );
-  }
+        </div>
+      </ThemeContext.Provider>
+    </Router>
+  );
 }
 
 ReactDOM.render(

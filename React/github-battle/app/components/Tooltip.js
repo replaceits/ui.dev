@@ -1,5 +1,4 @@
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import Hover from './Hover';
@@ -26,27 +25,23 @@ const styles = {
   }
 }
 
-class Tooltip extends React.Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  }
+function Tooltip({text, children}) {
+  return (
+    <Hover>
+      {(hovering) => (
+        <div 
+          style={styles.container}
+        >
+          {hovering === true && <div style={styles.tooltip}>{text}</div>}
+          {children}
+        </div>
+      )}
+    </Hover>
+  );
+}
 
-  render() {
-    const {text, children} = this.props;
-
-    return (
-      <Hover>
-        {(hovering) => (
-          <div 
-            style={styles.container}
-          >
-            {hovering === true && <div style={styles.tooltip}>{text}</div>}
-            {children}
-          </div>
-        )}
-      </Hover>
-    )
-  }
+Tooltip.propTypes = {
+  text: PropTypes.string.isRequired,
 }
 
 export default Tooltip;

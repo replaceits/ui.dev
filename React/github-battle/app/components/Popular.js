@@ -5,6 +5,7 @@ import {FaCodeBranch, FaExclamationTriangle, FaStar, FaUser} from 'react-icons/f
 import { fetchPopularRepos } from '../utils/api';
 import Card from './Card';
 import Tooltip from './Tooltip';
+import Loading from './Loading';
 
 function LanguagesNav({selected, onUpdateLanguage}) {
   return (
@@ -138,7 +139,7 @@ class Popular extends React.Component {
           onUpdateLanguage={this.updateLanguage.bind(this)}
         />
 
-        {this.isLoading() && <p>LOADING</p>}
+        {this.isLoading() && <Loading />}
         {error && <p className='center-text error'>{error}</p>}
         {repos[selectedLanguage] && <ReposGrid repos={repos[selectedLanguage]} />}
       </React.Fragment>
